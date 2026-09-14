@@ -1,0 +1,23 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+slurm-*.out
+preflight_*.out
+preflight_*.err
+validation/preflight_logs/
+data/raw/
+validation/static_validation_report.csv
+# Reproduced artifacts are generated locally and are not source files.
+data/processed/
+outputs/
+documentation/technical_decisions/
+
+.venv*/

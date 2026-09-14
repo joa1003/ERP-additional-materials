@@ -1,0 +1,94 @@
+project_root: .
+analysis_id: profile_clustering_final_k_selection
+paths:
+  profiles_zscore: outputs/tables/profile_clustering/profile_construction/source_training_profiles_zscore.csv
+  profiles_raw_kwh: outputs/tables/profile_clustering/profile_construction/source_training_profiles_raw_kwh.csv
+  low_signal_audit: outputs/tables/profile_clustering/profile_construction/source_training_profile_variation_audit.csv
+  distance_matrix: outputs/arrays/profile_clustering/profile_construction/source_prototype_fit_dtw_distance_matrix.npy
+  profile_construction_audit: outputs/tables/profile_clustering/profile_construction/source_training_profile_slot_audit.csv
+  phase1_status: outputs/metadata/profile_clustering/profile_construction/source_training_profile_construction_status.json
+  time_map: data/processed/time_aligned/lcl_full_local_clock_map.parquet
+  output_tables: outputs/tables/profile_clustering_clustering_final_k_selection
+  output_figures: outputs/figures/profile_clustering_clustering_final_k_selection
+  output_metadata: outputs/metadata/profile_clustering_clustering_final_k_selection
+  decision_document: documentation/technical_decisions/profile_clustering_k_selection.md
+expected:
+  source_households: 3843
+  fit_eligible_households: 3789
+  low_signal_households: 54
+  profile_slots: 48
+  distance_matrix_shape:
+  - 3789
+  - 3789
+  phase1_status: COMPLETE_PASS
+clustering:
+  broad_k:
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  broad_seeds:
+  - 42
+  - 123
+  - 2026
+  - 31415
+  focused_k:
+  - 4
+  - 5
+  - 6
+  focused_seeds:
+  - 42
+  - 123
+  - 2026
+  - 31415
+  - 7
+  - 11
+  - 19
+  - 31
+  - 53
+  - 71
+  - 97
+  - 131
+  - 173
+  - 211
+  - 257
+  - 307
+  - 353
+  - 401
+  - 457
+  - 509
+  reference_seed: 42
+  metric: dtw
+  n_init_per_independent_run: 1
+  max_iter: 100
+  max_iter_barycenter: 100
+  tol: 1.0e-06
+  max_parallel_workers: 8
+  normalisation: per_profile_zscore_ddof0_reused_from_phase1
+time_rules:
+  canonical_time_source: data/processed/time_aligned/lcl_full_local_clock_map.parquet
+  local_slot_column: local_slot
+  physical_timestamp_column: timestamp_gmt
+  required_time_map_columns:
+  - raw_row_index
+  - timestamp_gmt
+  - local_slot
+  - local_day_of_week
+  - local_weekend
+  - local_month
+  profile_period_start: '2013-01-02 00:00:00'
+  profile_period_end: '2013-09-13 18:30:00'
+  excluded_local_dates:
+  - '2013-03-31'
+  raw_gmt_hour_as_local_time_allowed: false
+scope_guards:
+  cer_inputs_allowed: false
+  forecasting_metrics_allowed: false
+  survey_inputs_allowed: false
+  profile_clustering_phase1_outputs_read_only: true
+  reported_k_locked: true
+  automatic_final_k_selection_allowed: false
+reported_k: 4

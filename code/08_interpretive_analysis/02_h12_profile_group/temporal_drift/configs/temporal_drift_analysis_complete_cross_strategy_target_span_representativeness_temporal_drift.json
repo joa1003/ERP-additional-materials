@@ -1,0 +1,132 @@
+{
+  "analysis_id": "temporal_drift_analysis",
+  "analysis": "Temporal drift analysis complete cross-strategy target-span representativeness and temporal-drift analysis",
+  "canonical_lock_path": "documentation/reproducibility_design_contract.md",
+  "upstream_analysis": "Temporal drift features target-span representativeness and temporal profile drift",
+  "expected_meters": 929,
+  "expected_group_counts": {
+    "1": 141,
+    "2": 325,
+    "3": 324,
+    "4": 139
+  },
+  "formal_leads": [
+    1,
+    12,
+    48
+  ],
+  "primary_lead": 12,
+  "formal_criteria": [
+    "mae",
+    "rmse",
+    "smape"
+  ],
+  "formal_seeds": [
+    42,
+    123,
+    2026,
+    31415
+  ],
+  "periods": {
+    "limited_30day": [
+      "2009-07-15",
+      1,
+      "2009-08-13",
+      48
+    ],
+    "later_train": [
+      "2009-08-14",
+      1,
+      "2010-07-24",
+      24
+    ],
+    "validation": [
+      "2010-07-24",
+      25,
+      "2010-09-15",
+      48
+    ],
+    "test": [
+      "2010-09-16",
+      1,
+      "2010-12-31",
+      48
+    ]
+  },
+  "excluded_profile_dates": [
+    "2010-03-28"
+  ],
+  "strategies": [
+    "direct_transfer",
+    "fine_tuning",
+    "cer_scratch_limited",
+    "cer_scratch_full"
+  ],
+  "pairwise_comparisons": [
+    {
+      "comparison_id": "source_transfer",
+      "focal_strategy": "direct_transfer",
+      "comparator_strategy": "cer_scratch_limited",
+      "role": "primary_lock_controlled"
+    },
+    {
+      "comparison_id": "fine_tuning",
+      "focal_strategy": "fine_tuning",
+      "comparator_strategy": "direct_transfer",
+      "role": "primary_lock_controlled"
+    },
+    {
+      "comparison_id": "full_data",
+      "focal_strategy": "cer_scratch_full",
+      "comparator_strategy": "cer_scratch_limited",
+      "role": "primary_lock_controlled"
+    },
+    {
+      "comparison_id": "direct_vs_full",
+      "focal_strategy": "direct_transfer",
+      "comparator_strategy": "cer_scratch_full",
+      "role": "primary_lock_controlled"
+    },
+    {
+      "comparison_id": "fine_tuning_vs_limited",
+      "focal_strategy": "fine_tuning",
+      "comparator_strategy": "cer_scratch_limited",
+      "role": "supplementary_strategy_closure"
+    },
+    {
+      "comparison_id": "full_vs_fine_tuning",
+      "focal_strategy": "cer_scratch_full",
+      "comparator_strategy": "fine_tuning",
+      "role": "supplementary_strategy_closure"
+    }
+  ],
+  "primary_predictors": [
+    "test_z_clock_rmse",
+    "test_correlation_distance",
+    "test_mean_abs_change_pct",
+    "test_std_abs_change_pct",
+    "test_low_share_abs_change_pp",
+    "test_high_share_abs_change_pp",
+    "test_peak_shift_slots",
+    "validation_z_clock_rmse",
+    "later_train_z_clock_rmse"
+  ],
+  "practical_quartile_predictors": [
+    "test_z_clock_rmse",
+    "test_mean_abs_change_pct",
+    "test_low_share_abs_change_pp",
+    "test_high_share_abs_change_pp"
+  ],
+  "absolute_gain_rule": "comparator_error - focal_error",
+  "relative_gain_rule": "100 * absolute_gain / comparator_error; undefined when comparator_error is zero; no epsilon",
+  "positive_gain_rule": "absolute_gain > 0",
+  "bootstraps": 500,
+  "random_seed": 20260728,
+  "aggregation": "meter-level four-seed metrics; all 929 meters retained; group adjustment is post-hoc",
+  "upstream_reproduction_tolerance": 1e-04,
+  "training_performed": false,
+  "predictions_modified": false,
+  "prototypes_refitted": false,
+  "meters_reassigned": false,
+  "interpretation": "descriptive and non-causal"
+}

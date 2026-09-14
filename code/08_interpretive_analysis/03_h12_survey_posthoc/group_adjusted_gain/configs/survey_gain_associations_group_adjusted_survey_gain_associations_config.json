@@ -1,0 +1,224 @@
+{
+  "analysis": "Survey gain associations \u2014 Group-adjusted survey\u2013gain associations",
+  "analysis_id": "survey_gain_associations",
+  "formal_inputs": {
+    "survey_recoding_status": "outputs/metadata/survey_recoding_survey_recoding_harmonisation/survey_recoding_survey_recoding_harmonisation_status.json",
+    "survey_recoding_inventory": "outputs/metadata/survey_recoding_survey_recoding_harmonisation/survey_recoding_output_inventory.csv",
+    "survey_recoding_cer_recoded": "outputs/tables/survey_recoding_survey_recoding_harmonisation/survey_recoding_cer_meter_survey_recoded.csv",
+    "survey_recoding_analysis_lock": "outputs/tables/survey_recoding_survey_recoding_harmonisation/survey_recoding_analysis_variable_lock.csv",
+    "survey_group_composition_status": "outputs/metadata/survey_group_composition_survey_group_composition/survey_group_composition_survey_group_composition_status.json",
+    "survey_group_composition_inventory": "outputs/metadata/survey_group_composition_survey_group_composition/survey_group_composition_output_inventory.csv",
+    "survey_group_composition_decision_note": "documentation/technical_decisions/survey_group_composition_survey_group_composition_decision.md",
+    "local_source_support_table_root": "outputs/tables/local_source_support_complete_cross_strategy_forecasting_aligned_source_support",
+    "local_source_support_metadata_root": "outputs/metadata/local_source_support_complete_cross_strategy_forecasting_aligned_source_support"
+  },
+  "output_roots": {
+    "tables": "outputs/tables/survey_gain_associations_group_adjusted_survey_gain_associations",
+    "metadata": "outputs/metadata/survey_gain_associations_group_adjusted_survey_gain_associations",
+    "logs": "logs/survey_gain_associations_group_adjusted_survey_gain_associations",
+    "decision_note": "documentation/technical_decisions/survey_gain_associations_group_adjusted_survey_gain_associations_decision.md"
+  },
+  "expected": {
+    "cer_formal_meters": 929,
+    "cer_group_counts": {
+      "G1": 141,
+      "G2": 325,
+      "G3": 324,
+      "G4": 139
+    },
+    "local_source_support_cross_strategy_rows": 8361,
+    "local_source_support_horizons": [
+      1,
+      12,
+      48
+    ],
+    "local_source_support_criteria": [
+      "MAE",
+      "RMSE",
+      "SMAPE"
+    ]
+  },
+  "statistics": {
+    "within_group_permutations": 20000,
+    "permutation_seed": 11042026,
+    "cv_repeats": 20,
+    "cv_folds": 10,
+    "cv_seed": 11042027,
+    "minimum_group_category_n_flag": 10,
+    "bh_alpha": 0.05
+  },
+  "analysis_spec": [
+    {
+      "domain": "household_composition",
+      "variable": "household_composition_common",
+      "display_name": "Household composition",
+      "analysis_role": "main",
+      "family": "CER_MAIN_8",
+      "category_order": [
+        "live_alone",
+        "adults_only",
+        "adults_with_children_under15"
+      ],
+      "category_labels": [
+        "Live alone",
+        "Adults only",
+        "Adults with children under 15"
+      ],
+      "denominator_note": "Survey-linked respondents with a substantive Q410 answer."
+    },
+    {
+      "domain": "daytime_presence",
+      "variable": "daytime_presence_category",
+      "display_name": "Daytime household presence",
+      "analysis_role": "main",
+      "family": "CER_MAIN_8",
+      "category_order": [
+        "none",
+        "one",
+        "two_or_more"
+      ],
+      "category_labels": [
+        "Nobody present",
+        "One",
+        "Two or more"
+      ],
+      "denominator_note": "Eligible non-live-alone respondents only; live-alone households were structurally not asked."
+    },
+    {
+      "domain": "electric_thermal_end_use",
+      "variable": "electric_thermal_load",
+      "display_name": "Electric thermal end use",
+      "analysis_role": "main",
+      "family": "CER_MAIN_8",
+      "category_order": [
+        "0",
+        "1"
+      ],
+      "category_labels": [
+        "Not reported",
+        "Reported"
+      ],
+      "denominator_note": "Survey-linked respondents with governed Q470/Q4701 recoding."
+    },
+    {
+      "domain": "dwelling_scale",
+      "variable": "dwelling_scale_main",
+      "display_name": "Bedroom category",
+      "analysis_role": "main",
+      "family": "CER_MAIN_8",
+      "category_order": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5+"
+      ],
+      "category_labels": [
+        "1 bedroom",
+        "2 bedrooms",
+        "3 bedrooms",
+        "4 bedrooms",
+        "5+ bedrooms"
+      ],
+      "denominator_note": "Substantive Q460 answers only; Refused is retained as a missing reason and excluded from this variable-specific model."
+    },
+    {
+      "domain": "reported_thermal_features",
+      "variable": "double_glazing_category",
+      "display_name": "Double-glazing proportion",
+      "analysis_role": "main",
+      "family": "CER_MAIN_8",
+      "category_order": [
+        "none",
+        "about_quarter",
+        "about_half",
+        "about_three_quarters",
+        "all"
+      ],
+      "category_labels": [
+        "No double glazing",
+        "About a quarter",
+        "About half",
+        "About three quarters",
+        "All"
+      ],
+      "denominator_note": "Original Q4906 response categories; codes are not treated as a continuous efficiency score."
+    },
+    {
+      "domain": "reported_thermal_features",
+      "variable": "attic_insulation_category",
+      "display_name": "Attic-insulation response",
+      "analysis_role": "main",
+      "family": "CER_MAIN_8",
+      "category_order": [
+        "yes_within_5_years",
+        "yes_more_than_5_years_ago",
+        "no",
+        "dont_know"
+      ],
+      "category_labels": [
+        "Yes, within 5 years",
+        "Yes, more than 5 years ago",
+        "No",
+        "Don't know"
+      ],
+      "denominator_note": "Original Q4908 response categories; Don't know remains a substantive response category."
+    },
+    {
+      "domain": "reported_thermal_features",
+      "variable": "wall_insulation_category",
+      "display_name": "Wall-insulation response",
+      "analysis_role": "main",
+      "family": "CER_MAIN_8",
+      "category_order": [
+        "yes",
+        "no",
+        "dont_know"
+      ],
+      "category_labels": [
+        "Yes",
+        "No",
+        "Don't know"
+      ],
+      "denominator_note": "Original Q4909 response categories; Don't know remains a substantive response category."
+    },
+    {
+      "domain": "energy_vulnerability",
+      "variable": "energy_vulnerability",
+      "display_name": "Heating-affordability difficulty",
+      "analysis_role": "main",
+      "family": "CER_MAIN_8",
+      "category_order": [
+        "0",
+        "1"
+      ],
+      "category_labels": [
+        "Indicator absent",
+        "Indicator present"
+      ],
+      "denominator_note": "Governed Q471/Q472/Q473 broad heating-affordability indicator; not a formal fuel-poverty measure."
+    },
+    {
+      "domain": "economic_position",
+      "variable": "economic_position_sensitivity",
+      "display_name": "Social class",
+      "analysis_role": "secondary_sensitivity",
+      "family": "CER_SECONDARY_SEPARATE",
+      "category_order": [
+        "AB",
+        "C1",
+        "C2",
+        "DE",
+        "F_farmer"
+      ],
+      "category_labels": [
+        "AB",
+        "C1",
+        "C2",
+        "DE",
+        "Farmer"
+      ],
+      "denominator_note": "Secondary sensitivity only; income remains unused because release semantics are unresolved."
+    }
+  ]
+}

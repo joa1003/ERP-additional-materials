@@ -1,0 +1,40 @@
+{
+  "project_root": ".",
+  "analysis_id": "target_profile_assignment",
+  "inputs": {
+    "source_prototypes_csv": "outputs/tables/profile_clustering_clustering_final_decision_dissertation/profile_clustering_final_selected_source_prototypes.csv",
+    "source_group_summary_csv": "outputs/tables/profile_clustering_clustering_final_decision_dissertation/profile_clustering_final_selected_profile_groups_dissertation.csv",
+    "cer_canonical_parquet": "data/processed/time_aligned/cer_canonical_local_grid.parquet",
+    "experiment_design_lock": "documentation/reproducibility_design_contract.md"
+  },
+  "profile": {
+    "start_date": "2009-07-15",
+    "start_slot": 1,
+    "end_date": "2010-07-24",
+    "end_slot": 24,
+    "period_start_label": "2009-07-15 00:00",
+    "period_end_label": "2010-07-24 11:30",
+    "excluded_local_dates": [
+      "2009-10-25",
+      "2010-03-28",
+      "2010-10-31"
+    ],
+    "daily_profile_variation_flag_threshold_kwh": 0.01,
+    "arrow_batch_size": 500000
+  },
+  "expected": {
+    "source_k": 4,
+    "source_seed": 71,
+    "source_formal_cohort": 3843,
+    "source_prototype_estimation_profiles": 3789,
+    "source_profiles_assigned_after_fixing_prototypes": 54,
+    "cer_meters": 929,
+    "cer_canonical_rows": 23901312
+  },
+  "outputs": {
+    "table_dir": "outputs/tables/target_profile_assignment_cer_assignment",
+    "figure_dir": "outputs/figures/target_profile_assignment_cer_assignment",
+    "metadata_dir": "outputs/metadata/target_profile_assignment_cer_assignment",
+    "decision_md": "outputs/metadata/target_profile_assignment_cer_assignment/method_summary.md"
+  }
+}

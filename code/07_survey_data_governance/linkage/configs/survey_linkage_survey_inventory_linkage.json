@@ -1,0 +1,288 @@
+{
+  "analysis": "Survey linkage — Dual LCL/CER survey inventory and linkage audit",
+  "analysis_slug": "survey_linkage_survey_inventory_linkage",
+  "analysis_id": "survey_linkage",
+  "root": ".",
+  "canonical_lock": "documentation/reproducibility_design_contract.md",
+  "expected": {
+    "lcl_formal_households": 3843,
+    "cer_formal_meters": 929,
+    "lcl_group_counts": {
+      "G1": 540,
+      "G2": 976,
+      "G3": 1181,
+      "G4": 1146
+    },
+    "cer_group_counts": {
+      "G1": 141,
+      "G2": 325,
+      "G3": 324,
+      "G4": 139
+    }
+  },
+  "formal_inputs": {
+    "lcl_cohort": {
+      "required": true,
+      "exact_relative_path": "outputs/tables/horizon_impact/lcl_p0_final_eligible_households_new.csv"
+    },
+    "lcl_assignments": {
+      "required": true,
+      "exact_relative_path": "outputs/tables/profile_clustering_clustering_final_decision_dissertation/profile_clustering_final_selected_source_assignments.parquet"
+    },
+    "cer_assignments": {
+      "required": true,
+      "exact_relative_path": "outputs/tables/target_profile_assignment_cer_assignment/target_profile_assignment_cer_source_defined_assignments.parquet"
+    },
+    "lcl_survey_questions": {
+      "required": true,
+      "exact_relative_path": "data/raw/LCL/csv/data_collection/data_tables/survey_questions.csv"
+    },
+    "lcl_survey_answers": {
+      "required": true,
+      "exact_relative_path": "data/raw/LCL/csv/data_collection/data_tables/survey_answers.csv"
+    },
+    "lcl_readme": {
+      "required": false,
+      "search_roots": [
+        "data/raw/LCL",
+        "documentation"
+      ],
+      "basename_patterns": [
+        "readme_v0-13.pdf",
+        "README_v0-13.pdf",
+        "*v0-13*.pdf"
+      ]
+    },
+    "lcl_appliance_survey_form": {
+      "required": false,
+      "search_roots": [
+        "data/raw/LCL",
+        "documentation"
+      ],
+      "basename_patterns": [
+        "*appliance*survey*.pdf",
+        "*appliance*survey*.doc*",
+        "*appliance*survey*.xls*"
+      ]
+    },
+    "cer_pretrial_survey_data": {
+      "required": true,
+      "exact_relative_path": "data/raw/ISSDA_CER/Smart meters Residential pre-trial survey data.csv"
+    },
+    "cer_pretrial_questionnaire": {
+      "required": true,
+      "exact_relative_path": "data/raw/ISSDA_CER/SurveySourceData_survey_original/RESIDENTIAL PRE TRIAL SURVEY.pdf"
+    },
+    "cer_allocation_data": {
+      "required": true,
+      "exact_relative_path": "data/raw/ISSDA_CER/SurveySourceData_survey_original/SME and Residential allocations.xlsx"
+    },
+    "cer_manifest": {
+      "required": true,
+      "exact_relative_path": "data/raw/ISSDA_CER/SurveySourceData_survey_original/File Manifest - Smart Meter Electricity Trial Data v1.0.1.pdf"
+    }
+  },
+  "output_roots": {
+    "tables": "outputs/tables/survey_linkage_survey_inventory_and_linkage",
+    "metadata": "outputs/metadata/survey_linkage_survey_inventory_and_linkage",
+    "decision_note": "documentation/technical_decisions/survey_linkage_survey_linkage_decision.md",
+    "logs": "logs/survey_linkage_survey_inventory_linkage"
+  },
+  "known_cer_question_domains": {
+    "Q410": "household_composition",
+    "Q420": "household_composition",
+    "Q43111": "household_composition",
+    "Q430": "daytime_presence",
+    "Q4312": "daytime_presence",
+    "Q470": "electric_thermal_load",
+    "Q4701": "electric_thermal_load",
+    "Q4801": "electric_thermal_load",
+    "Q4704": "electric_thermal_load",
+    "Q450": "dwelling_scale",
+    "Q453": "dwelling_scale",
+    "Q4531": "dwelling_scale",
+    "Q6103": "dwelling_scale",
+    "Q61031": "dwelling_scale",
+    "Q460": "dwelling_scale",
+    "Q455": "thermal_efficiency",
+    "Q4551": "thermal_efficiency",
+    "Q4906": "thermal_efficiency",
+    "Q4907": "thermal_efficiency",
+    "Q4908": "thermal_efficiency",
+    "Q4909": "thermal_efficiency",
+    "Q310": "economic_position",
+    "Q401": "economic_position",
+    "Q402": "economic_position",
+    "Q4021": "economic_position",
+    "Q5418": "economic_position",
+    "Q452": "economic_position",
+    "Q471": "energy_vulnerability",
+    "Q472": "energy_vulnerability",
+    "Q473": "energy_vulnerability",
+    "Q474": "energy_vulnerability"
+  },
+  "claim_boundary": {
+    "survey_role": "post_hoc_descriptive_associational",
+    "forecasting_inputs_changed": false,
+    "training_performed": false,
+    "predictions_modified": false,
+    "clustering_modified": false,
+    "regression_performed": false,
+    "outcome_dependent_variable_selection": false
+  },
+  "cer_main_routing_rules": [
+    {
+      "rule_id": "Q406_IF_Q405_YES",
+      "target_codes": [
+        "Q406"
+      ],
+      "parent_code": "Q405",
+      "operator": "equals",
+      "value": "1"
+    },
+    {
+      "rule_id": "Q420_Q430_IF_NOT_LIVING_ALONE",
+      "target_codes": [
+        "Q420",
+        "Q430"
+      ],
+      "parent_code": "Q410",
+      "operator": "in",
+      "values": [
+        "2",
+        "3"
+      ]
+    },
+    {
+      "rule_id": "Q43111_Q4312_IF_CHILDREN_PRESENT",
+      "target_codes": [
+        "Q43111",
+        "Q4312"
+      ],
+      "parent_code": "Q410",
+      "operator": "equals",
+      "value": "3"
+    },
+    {
+      "rule_id": "Q4531_IF_BUILD_YEAR_UNKNOWN",
+      "target_codes": [
+        "Q4531"
+      ],
+      "parent_code": "Q453",
+      "operator": "equals",
+      "value": "9999"
+    },
+    {
+      "rule_id": "Q61031_IF_FLOOR_AREA_NUMERIC",
+      "target_codes": [
+        "Q61031"
+      ],
+      "parent_code": "Q6103",
+      "operator": "numeric_lt",
+      "value": 999999999
+    },
+    {
+      "rule_id": "Q4801_IF_IMMERSION_SELECTED",
+      "target_codes": [
+        "Q4801"
+      ],
+      "parent_code": "Q4701",
+      "parent_column_contains": "Electric (immersion)",
+      "operator": "equals",
+      "value": "1"
+    },
+    {
+      "rule_id": "Q4551_IF_BER_YES",
+      "target_codes": [
+        "Q4551"
+      ],
+      "parent_code": "Q455",
+      "operator": "equals",
+      "value": "1"
+    },
+    {
+      "rule_id": "Q472_IF_HOME_NOT_ADEQUATELY_WARM",
+      "target_codes": [
+        "Q472"
+      ],
+      "parent_code": "Q471",
+      "operator": "equals",
+      "value": "2"
+    },
+    {
+      "rule_id": "Q474_IF_WENT_WITHOUT_HEATING",
+      "target_codes": [
+        "Q474"
+      ],
+      "parent_code": "Q473",
+      "operator": "equals",
+      "value": "1"
+    },
+    {
+      "rule_id": "Q5415_IF_BILL_INCREASE_EXPECTED",
+      "target_codes": [
+        "Q5415"
+      ],
+      "parent_code": "Q5414",
+      "operator": "equals",
+      "value": "2"
+    },
+    {
+      "rule_id": "Q54155_IF_BILL_DECREASE_EXPECTED",
+      "target_codes": [
+        "Q54155"
+      ],
+      "parent_code": "Q5414",
+      "operator": "equals",
+      "value": "3"
+    }
+  ],
+  "cer_special_code_rules": {
+    "Q300": {
+      "7": "refused"
+    },
+    "Q401": {
+      "6": "refused"
+    },
+    "Q450": {
+      "6": "refused"
+    },
+    "Q460": {
+      "6": "refused"
+    },
+    "Q455": {
+      "3": "dont_know"
+    },
+    "Q4908": {
+      "4": "dont_know"
+    },
+    "Q4909": {
+      "3": "dont_know"
+    },
+    "Q4021": {
+      "6": "refused"
+    },
+    "Q5418": {
+      "6": "refused"
+    },
+    "Q5415": {
+      "6": "dont_know"
+    },
+    "Q54155": {
+      "6": "dont_know"
+    },
+    "Q6103": {
+      "999999999": "special_missing_not_provided"
+    },
+    "Q453": {
+      "9999": "special_missing_approximate_age_followup"
+    }
+  },
+  "closure_rules": {
+    "lcl_group_d_status": "out_of_scope_not_invalid",
+    "lcl_id_only_definition": "zero nonblank responses across Q211-Q344 appliance questions",
+    "duplicate_resolution": "coalesce only when no field has conflicting nonblank values",
+    "income_semantics": "hold Q402/Q4021 recoding for Survey recoding codebook decision",
+    "post_trial_survey_status": "not used in Survey linkage main analysis"
+  }
+}

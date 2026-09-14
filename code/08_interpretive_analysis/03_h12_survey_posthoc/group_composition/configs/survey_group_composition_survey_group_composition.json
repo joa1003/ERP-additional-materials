@@ -1,0 +1,416 @@
+{
+  "analysis": "Survey group composition — Survey composition across fixed source-defined profile groups",
+  "analysis_slug": "survey_group_composition_survey_group_composition",
+  "analysis_id": "survey_group_composition",
+  "root": ".",
+  "canonical_lock": "documentation/reproducibility_design_contract.md",
+  "expected": {
+    "lcl_formal_households": 3843,
+    "cer_formal_meters": 929,
+    "lcl_group_counts": {
+      "G1": 540,
+      "G2": 976,
+      "G3": 1181,
+      "G4": 1146
+    },
+    "cer_group_counts": {
+      "G1": 141,
+      "G2": 325,
+      "G3": 324,
+      "G4": 139
+    },
+    "lcl_usable_response": 1633,
+    "lcl_id_only_no_response": 90,
+    "lcl_no_survey_row": 2120,
+    "cer_usable_response": 768,
+    "cer_id_only_no_response": 0,
+    "cer_no_survey_row": 161,
+    "lcl_main_test_n": 6,
+    "cer_main_test_n": 8,
+    "cer_supplementary_descriptive_n": 1,
+    "cer_secondary_test_n": 1
+  },
+  "formal_inputs": {
+    "survey_recoding_status": "outputs/metadata/survey_recoding_survey_recoding_harmonisation/survey_recoding_survey_recoding_harmonisation_status.json",
+    "survey_recoding_output_inventory": "outputs/metadata/survey_recoding_survey_recoding_harmonisation/survey_recoding_output_inventory.csv",
+    "survey_recoding_decision_note": "documentation/technical_decisions/survey_recoding_survey_recoding_harmonisation_decision.md",
+    "lcl_recoded": "outputs/tables/survey_recoding_survey_recoding_harmonisation/survey_recoding_lcl_household_survey_recoded.csv",
+    "cer_recoded": "outputs/tables/survey_recoding_survey_recoding_harmonisation/survey_recoding_cer_meter_survey_recoded.csv",
+    "analysis_variable_lock": "outputs/tables/survey_recoding_survey_recoding_harmonisation/survey_recoding_analysis_variable_lock.csv",
+    "fallback_audit": "outputs/tables/survey_recoding_survey_recoding_harmonisation/survey_recoding_fallback_decision_audit.csv",
+    "category_size_audit": "outputs/tables/survey_recoding_survey_recoding_harmonisation/survey_recoding_category_size_audit.csv",
+    "missing_reason_summary": "outputs/tables/survey_recoding_survey_recoding_harmonisation/survey_recoding_missing_reason_summary.csv",
+    "variable_provenance": "outputs/tables/survey_recoding_survey_recoding_harmonisation/survey_recoding_variable_provenance.csv"
+  },
+  "output_roots": {
+    "tables": "outputs/tables/survey_group_composition_survey_group_composition",
+    "metadata": "outputs/metadata/survey_group_composition_survey_group_composition",
+    "decision_note": "documentation/technical_decisions/survey_group_composition_survey_group_composition_decision.md",
+    "logs": "logs/survey_group_composition_survey_group_composition"
+  },
+  "statistics": {
+    "monte_carlo_permutations": 20000,
+    "random_seed": 1103001,
+    "bh_families": [
+      "LCL_MAIN",
+      "CER_MAIN"
+    ],
+    "categorical_primary_p": "monte_carlo_permutation",
+    "ordinal_primary_p": "kruskal_wallis_asymptotic",
+    "categorical_effect": "cramers_v",
+    "ordinal_effect": "epsilon_squared",
+    "minimum_category_n_flag": 10
+  },
+  "rooms_display_bands": [
+    {
+      "label": "0",
+      "minimum": 0,
+      "maximum": 0
+    },
+    {
+      "label": "1-3",
+      "minimum": 1,
+      "maximum": 3
+    },
+    {
+      "label": "4-5",
+      "minimum": 4,
+      "maximum": 5
+    },
+    {
+      "label": "6-7",
+      "minimum": 6,
+      "maximum": 7
+    },
+    {
+      "label": "8-12",
+      "minimum": 8,
+      "maximum": 12
+    },
+    {
+      "label": "13+",
+      "minimum": 13,
+      "maximum": null
+    }
+  ],
+  "analysis_spec": {
+    "LCL": [
+      {
+        "domain": "household_size",
+        "variable": "household_size_band_common",
+        "display_name": "Household size band",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "LCL_MAIN",
+        "category_order": [
+          "1",
+          "2",
+          "3-4",
+          "5+"
+        ],
+        "category_labels": [
+          "1 person",
+          "2 people",
+          "3-4 people",
+          "5+ people"
+        ],
+        "denominator_note": "Available linked source-household responses"
+      },
+      {
+        "domain": "dwelling_scale",
+        "variable": "rooms_count",
+        "display_name": "Number of rooms",
+        "variable_type": "ordinal_numeric",
+        "analysis_role": "main",
+        "family": "LCL_MAIN",
+        "denominator_note": "Available linked source-household responses; raw values retained for Kruskal-Wallis"
+      },
+      {
+        "domain": "thermal_condition",
+        "variable": "double_glazing_any",
+        "display_name": "Double glazing reported",
+        "variable_type": "categorical",
+        "analysis_role": "main_domain_component",
+        "family": "LCL_MAIN",
+        "category_order": [
+          "0",
+          "1"
+        ],
+        "category_labels": [
+          "No",
+          "Yes"
+        ],
+        "denominator_note": "Available linked source-household responses; don't know and blank are excluded"
+      },
+      {
+        "domain": "thermal_condition",
+        "variable": "attic_roof_insulation_any",
+        "display_name": "Roof or loft insulation reported",
+        "variable_type": "categorical",
+        "analysis_role": "main_domain_component",
+        "family": "LCL_MAIN",
+        "category_order": [
+          "0",
+          "1"
+        ],
+        "category_labels": [
+          "No",
+          "Yes"
+        ],
+        "denominator_note": "Available linked source-household responses; don't know and blank are excluded"
+      },
+      {
+        "domain": "thermal_condition",
+        "variable": "wall_insulation_any",
+        "display_name": "Wall insulation reported",
+        "variable_type": "categorical",
+        "analysis_role": "main_domain_component",
+        "family": "LCL_MAIN",
+        "category_order": [
+          "0",
+          "1"
+        ],
+        "category_labels": [
+          "No",
+          "Yes"
+        ],
+        "denominator_note": "Available linked source-household responses; don't know and blank are excluded"
+      },
+      {
+        "domain": "electric_end_use",
+        "variable": "electric_thermal_load",
+        "display_name": "Electric thermal load reported",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "LCL_MAIN",
+        "category_order": [
+          "0",
+          "1"
+        ],
+        "category_labels": [
+          "Not reported",
+          "Reported"
+        ],
+        "denominator_note": "Available linked source-household responses"
+      }
+    ],
+    "CER": [
+      {
+        "domain": "household_composition",
+        "variable": "household_composition_common",
+        "display_name": "Household composition",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "CER_MAIN",
+        "category_order": [
+          "live_alone",
+          "adults_only",
+          "adults_with_children_under15"
+        ],
+        "category_labels": [
+          "Live alone",
+          "Adults only",
+          "Adults with children under 15"
+        ],
+        "denominator_note": "Available linked receiving-household responses"
+      },
+      {
+        "domain": "daytime_presence",
+        "variable": "daytime_presence_category",
+        "display_name": "Daytime household presence",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "CER_MAIN",
+        "category_order": [
+          "none",
+          "one",
+          "two_or_more"
+        ],
+        "category_labels": [
+          "None",
+          "One person",
+          "Two or more"
+        ],
+        "denominator_note": "Eligible non-live-alone respondents only; live-alone respondents are structurally not asked"
+      },
+      {
+        "domain": "electric_thermal_load",
+        "variable": "electric_thermal_load",
+        "display_name": "Electric thermal load reported",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "CER_MAIN",
+        "category_order": [
+          "0",
+          "1"
+        ],
+        "category_labels": [
+          "Not reported",
+          "Reported"
+        ],
+        "denominator_note": "Available linked receiving-household responses"
+      },
+      {
+        "domain": "dwelling_scale",
+        "variable": "dwelling_scale_main",
+        "display_name": "Bedroom category",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "CER_MAIN",
+        "category_order": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5+"
+        ],
+        "category_labels": [
+          "1 bedroom",
+          "2 bedrooms",
+          "3 bedrooms",
+          "4 bedrooms",
+          "5+ bedrooms"
+        ],
+        "denominator_note": "Substantive Q460 responses only; two refused responses are excluded and recorded separately"
+      },
+      {
+        "domain": "reported_thermal_features",
+        "variable": "double_glazing_category",
+        "display_name": "Double-glazing proportion",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "CER_MAIN",
+        "category_order": [
+          "none",
+          "about_quarter",
+          "about_half",
+          "about_three_quarters",
+          "all"
+        ],
+        "category_labels": [
+          "None",
+          "About a quarter",
+          "About half",
+          "About three quarters",
+          "All"
+        ],
+        "denominator_note": "Original Q4906 response categories; codes are labels, not an efficiency score"
+      },
+      {
+        "domain": "reported_thermal_features",
+        "variable": "attic_insulation_category",
+        "display_name": "Attic-insulation response",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "CER_MAIN",
+        "category_order": [
+          "yes_within_5_years",
+          "yes_more_than_5_years_ago",
+          "no",
+          "dont_know"
+        ],
+        "category_labels": [
+          "Yes, within 5 years",
+          "Yes, more than 5 years ago",
+          "No",
+          "Don't know"
+        ],
+        "denominator_note": "Original Q4908 response categories, including don't know"
+      },
+      {
+        "domain": "reported_thermal_features",
+        "variable": "wall_insulation_category",
+        "display_name": "Wall-insulation response",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "CER_MAIN",
+        "category_order": [
+          "yes",
+          "no",
+          "dont_know"
+        ],
+        "category_labels": [
+          "Yes",
+          "No",
+          "Don't know"
+        ],
+        "denominator_note": "Original Q4909 response categories, including don't know"
+      },
+      {
+        "domain": "energy_vulnerability",
+        "variable": "energy_vulnerability",
+        "display_name": "Heating-affordability difficulty indicator",
+        "variable_type": "categorical",
+        "analysis_role": "main",
+        "family": "CER_MAIN",
+        "category_order": [
+          "0",
+          "1"
+        ],
+        "category_labels": [
+          "Indicator absent",
+          "Indicator present"
+        ],
+        "denominator_note": "Broad reported heating-affordability difficulty indicator"
+      },
+      {
+        "domain": "reported_thermal_features",
+        "variable": "reported_thermal_feature_count",
+        "display_name": "Reported thermal-feature count",
+        "variable_type": "categorical",
+        "analysis_role": "supplementary_descriptive",
+        "family": "CER_SUPPLEMENTARY",
+        "category_order": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "category_labels": [
+          "0 features",
+          "1 feature",
+          "2 features",
+          "3 features"
+        ],
+        "denominator_note": "Complete three-component responses only; descriptive count, not an efficiency score"
+      },
+      {
+        "domain": "economic_position",
+        "variable": "economic_position_sensitivity",
+        "display_name": "Social-class sensitivity",
+        "variable_type": "categorical",
+        "analysis_role": "secondary_sensitivity",
+        "family": "CER_SECONDARY",
+        "category_order": [
+          "AB",
+          "C1",
+          "C2",
+          "DE",
+          "F_farmer"
+        ],
+        "category_labels": [
+          "AB",
+          "C1",
+          "C2",
+          "DE",
+          "F: farmers"
+        ],
+        "denominator_note": "Secondary sensitivity; refused responses are excluded and recorded separately"
+      }
+    ]
+  },
+  "claim_boundary": {
+    "survey_role": "post_hoc_descriptive_associational",
+    "profile_group_role": "fixed_source_defined_interpretive_group",
+    "training_performed": false,
+    "predictions_modified": false,
+    "forecasting_inputs_modified": false,
+    "clustering_modified": false,
+    "regression_performed": false,
+    "significance_testing_performed": true,
+    "ProfileInterpretation_outcomes_read": false,
+    "outcome_dependent_variable_selection": false,
+    "causal_inference_performed": false,
+    "profile_groups_renamed_from_survey": false
+  }
+}

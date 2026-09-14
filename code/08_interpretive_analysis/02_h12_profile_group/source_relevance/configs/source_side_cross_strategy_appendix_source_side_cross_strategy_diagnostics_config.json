@@ -1,0 +1,36 @@
+{
+  "analysis_id": "source_side_cross_strategy",
+  "primary_lead": 12,
+  "expected_meters": 929,
+  "expected_group_counts": {"1": 141, "2": 325, "3": 324, "4": 139},
+  "criteria": ["mae", "rmse", "smape"],
+  "gain_scales": ["absolute", "relative"],
+  "comparisons": [
+    {"id": "source_transfer", "label": "Direct Transfer over Scratch Limited", "formula": "L−D", "focal": "direct_transfer", "comparator": "cer_scratch_limited"},
+    {"id": "fine_tuning", "label": "Fine Tuning over Direct Transfer", "formula": "D−T", "focal": "fine_tuning", "comparator": "direct_transfer"},
+    {"id": "full_data", "label": "Scratch Full over Scratch Limited", "formula": "L−F", "focal": "cer_scratch_full", "comparator": "cer_scratch_limited"},
+    {"id": "direct_vs_full", "label": "Direct Transfer over Scratch Full", "formula": "F−D", "focal": "direct_transfer", "comparator": "cer_scratch_full"},
+    {"id": "fine_tuning_vs_limited", "label": "Fine Tuning over Scratch Limited", "formula": "L−T", "focal": "fine_tuning", "comparator": "cer_scratch_limited"},
+    {"id": "full_vs_fine_tuning", "label": "Scratch Full over Fine Tuning", "formula": "T−F", "focal": "cer_scratch_full", "comparator": "fine_tuning"}
+  ],
+  "source_measures": [
+    {"evidence_type": "Prototype distance", "measure": "Nearest DTW distance", "column": "nearest_dtw_distance", "adjustments": ["None", "Group adjusted"]},
+    {"evidence_type": "Assignment confidence", "measure": "Distance margin", "column": "distance_margin", "adjustments": ["Group adjusted"]},
+    {"evidence_type": "Assignment confidence", "measure": "Distance ratio", "column": "distance_ratio", "adjustments": ["Group adjusted"]},
+    {"evidence_type": "Local source support", "measure": "Mean distance to ten nearest source households", "column": "source_knn10_mean_rmse_z", "adjustments": ["None", "Group adjusted"]}
+  ],
+  "inputs": {
+    "local_source_support_outcome": "outputs/tables/local_source_support_complete_cross_strategy_forecasting_aligned_source_support/local_source_support_cross_strategy_profile_support_outcome_dataset.csv"
+  },
+  "outputs": {
+    "table_dir": "outputs/tables/source_side_cross_strategy_appendix_source_side_cross_strategy_diagnostics",
+    "metadata_dir": "outputs/metadata/source_side_cross_strategy_appendix_source_side_cross_strategy_diagnostics"
+  },
+  "association": {
+    "bh_family": "separate by adjustment × criterion × gain scale across all reported source measures and six comparisons",
+    "bootstrap_repetitions": 1000,
+    "seed": 20260816,
+    "bootstrap_confidence": 0.95,
+    "bootstrap_unit": "household"
+  }
+}

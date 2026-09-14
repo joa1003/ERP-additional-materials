@@ -1,0 +1,22 @@
+{
+  "analysis_id": "group_heterogeneity",
+  "analysis": "group_heterogeneity_group_heterogeneity_practical_significance",
+  "primary_outcome": "h=12 meter-level relative MAE Source Transfer Gain",
+  "primary_comparator": "CER Scratch Limited",
+  "meters": 929,
+  "fixed_groups": [1, 2, 3, 4],
+  "leads": [1, 12, 48],
+  "criteria": ["mae", "rmse", "smape"],
+  "permutations": 1999,
+  "bootstraps": 1000,
+  "cv_repeats": 50,
+  "cv_folds": 10,
+  "rng_seed": 20260728,
+  "analysis_scope": "read-only descriptive and associational post-hoc audit",
+  "training_performed": false,
+  "predictions_modified": false,
+  "prototypes_refitted": false,
+  "meters_reassigned": false,
+  "meters_excluded": false,
+  "causal_claims": false
+}

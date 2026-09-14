@@ -1,0 +1,42 @@
+{
+  "analysis": "Cross strategy profile group — h=12 cross-strategy profile-group appendix and reproducibility closure",
+  "analysis_id": "cross_strategy_profile_group",
+  "formal_lead": 12,
+  "expected_meters": 929,
+  "expected_group_counts": {
+    "G1": 141,
+    "G2": 325,
+    "G3": 324,
+    "G4": 139
+  },
+  "expected_local_source_support_rows": 8361,
+  "expected_metrics": [
+    "MAE",
+    "RMSE",
+    "SMAPE"
+  ],
+  "local_source_support_outcome_path": "outputs/tables/local_source_support_complete_cross_strategy_forecasting_aligned_source_support/local_source_support_cross_strategy_profile_support_outcome_dataset.csv",
+  "local_source_support_status_path": "outputs/metadata/local_source_support_complete_cross_strategy_forecasting_aligned_source_support/local_source_support_status.json",
+  "bootstrap_resamples": 1000,
+  "permutation_resamples": 1999,
+  "random_seed": 31415,
+  "bh_primary_family": "all_36_h12_comparison_x_metric_x_gain_scale_omnibus_tests",
+  "comparison_order": [
+    "direct_over_limited",
+    "fine_tuning_over_direct",
+    "full_over_limited",
+    "direct_over_full",
+    "fine_tuning_over_limited",
+    "full_over_fine_tuning"
+  ],
+  "comparison_names": {
+    "direct_over_limited": "Direct Transfer over Scratch Limited",
+    "fine_tuning_over_direct": "Fine Tuning over Direct Transfer",
+    "full_over_limited": "Scratch Full over Scratch Limited",
+    "direct_over_full": "Direct Transfer over Scratch Full",
+    "fine_tuning_over_limited": "Fine Tuning over Scratch Limited",
+    "full_over_fine_tuning": "Scratch Full over Fine Tuning"
+  },
+  "sign_convention": "Positive gain values favour the first named strategy.",
+  "analysis_boundary": "Read-only post-hoc reporting closure. No training, prediction modification, prototype refitting, meter reassignment, exclusion, or strategy redefinition."
+}

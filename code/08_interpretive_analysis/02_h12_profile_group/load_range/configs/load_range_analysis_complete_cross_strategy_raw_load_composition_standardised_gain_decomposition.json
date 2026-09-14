@@ -1,0 +1,100 @@
+{
+  "analysis_id": "load_range_analysis",
+  "analysis": "Load range analysis complete cross-strategy raw-load composition-standardised gain decomposition",
+  "canonical_lock_path": "documentation/reproducibility_design_contract.md",
+  "lead": 12,
+  "expected_meters": 929,
+  "expected_group_counts": {
+    "1": 141,
+    "2": 325,
+    "3": 324,
+    "4": 139
+  },
+  "formal_seeds": [
+    42,
+    123,
+    2026,
+    31415
+  ],
+  "strategies": [
+    "direct_transfer",
+    "fine_tuning",
+    "cer_scratch_limited",
+    "cer_scratch_full"
+  ],
+  "pairwise_comparisons": [
+    {
+      "comparison_id": "source_transfer",
+      "focal_strategy": "direct_transfer",
+      "comparator_strategy": "cer_scratch_limited",
+      "role": "primary_lock_controlled"
+    },
+    {
+      "comparison_id": "fine_tuning",
+      "focal_strategy": "fine_tuning",
+      "comparator_strategy": "direct_transfer",
+      "role": "primary_lock_controlled"
+    },
+    {
+      "comparison_id": "full_data",
+      "focal_strategy": "cer_scratch_full",
+      "comparator_strategy": "cer_scratch_limited",
+      "role": "primary_lock_controlled"
+    },
+    {
+      "comparison_id": "direct_vs_full",
+      "focal_strategy": "direct_transfer",
+      "comparator_strategy": "cer_scratch_full",
+      "role": "primary_lock_controlled"
+    },
+    {
+      "comparison_id": "fine_tuning_vs_limited",
+      "focal_strategy": "fine_tuning",
+      "comparator_strategy": "cer_scratch_limited",
+      "role": "supplementary_strategy_closure"
+    },
+    {
+      "comparison_id": "full_vs_fine_tuning",
+      "focal_strategy": "cer_scratch_full",
+      "comparator_strategy": "fine_tuning",
+      "role": "supplementary_strategy_closure"
+    }
+  ],
+  "descriptive_raw_bins": [
+    "actual_eq_0",
+    "actual_gt_0_le_0_1",
+    "actual_gt_0_1_le_0_5",
+    "actual_gt_0_5_le_1_0",
+    "actual_gt_1_0"
+  ],
+  "standardisation_raw_bins": [
+    "actual_le_0_1",
+    "actual_gt_0_1_le_0_5",
+    "actual_gt_0_5_le_1_0",
+    "actual_gt_1_0"
+  ],
+  "formal_metrics": [
+    "mae",
+    "rmse",
+    "smape"
+  ],
+  "additive_decomposition_metrics": [
+    "mae",
+    "mse",
+    "smape"
+  ],
+  "relative_gain_rule": "100 * absolute_gain / comparator_error; undefined when comparator_error is zero; no epsilon",
+  "rmse_rule": "standardise each strategy MSE separately, take square roots, then form RMSE gain; bin-level RMSE is not additive",
+  "primary_population": 929,
+  "complete_support_sensitivity_population": 845,
+  "permutations": 1999,
+  "bootstraps": 1000,
+  "random_seed": 20260728,
+  "aggregation": "meter first; four-seed meter mean; equal-meter group aggregation",
+  "upstream_reproduction_tolerance": 1e-04,
+  "training_performed": false,
+  "predictions_modified": false,
+  "prototypes_refitted": false,
+  "meters_reassigned": false,
+  "interpretation": "descriptive and non-causal"
+}

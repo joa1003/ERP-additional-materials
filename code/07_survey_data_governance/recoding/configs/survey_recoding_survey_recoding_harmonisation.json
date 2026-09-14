@@ -1,0 +1,204 @@
+{
+  "analysis": "Survey recoding — Governed survey recoding and semantic harmonisation",
+  "analysis_slug": "survey_recoding_survey_recoding_harmonisation",
+  "analysis_id": "survey_recoding",
+  "root": ".",
+  "canonical_lock": "documentation/reproducibility_design_contract.md",
+  "expected": {
+    "lcl_formal_households": 3843,
+    "cer_formal_meters": 929,
+    "lcl_group_counts": {
+      "G1": 540,
+      "G2": 976,
+      "G3": 1181,
+      "G4": 1146
+    },
+    "cer_group_counts": {
+      "G1": 141,
+      "G2": 325,
+      "G3": 324,
+      "G4": 139
+    },
+    "survey_linkage_lcl_usable_n": 1633,
+    "survey_linkage_lcl_id_only_n": 90,
+    "survey_linkage_lcl_no_row_n": 2120,
+    "survey_linkage_cer_usable_n": 768,
+    "survey_linkage_cer_id_only_n": 0,
+    "survey_linkage_cer_no_row_n": 161,
+    "survey_linkage_routing_rules_n": 19
+  },
+  "formal_inputs": {
+    "lcl_cohort": "outputs/tables/horizon_impact/lcl_p0_final_eligible_households_new.csv",
+    "lcl_assignments": "outputs/tables/profile_clustering_clustering_final_decision_dissertation/profile_clustering_final_selected_source_assignments.parquet",
+    "cer_assignments": "outputs/tables/target_profile_assignment_cer_assignment/target_profile_assignment_cer_source_defined_assignments.parquet",
+    "lcl_survey_questions": "data/raw/LCL/csv/data_collection/data_tables/survey_questions.csv",
+    "lcl_survey_answers": "data/raw/LCL/csv/data_collection/data_tables/survey_answers.csv",
+    "cer_pretrial_survey_data": "data/raw/ISSDA_CER/Smart meters Residential pre-trial survey data.csv",
+    "survey_linkage_status": "outputs/metadata/survey_linkage_survey_inventory_and_linkage/survey_linkage_survey_inventory_linkage_status.json",
+    "survey_linkage_output_inventory": "outputs/metadata/survey_linkage_survey_inventory_and_linkage/survey_linkage_output_inventory.csv",
+    "survey_linkage_decision_note": "documentation/technical_decisions/survey_linkage_survey_linkage_decision.md",
+    "survey_linkage_lcl_linkage": "outputs/tables/survey_linkage_survey_inventory_and_linkage/survey_linkage_lcl_survey_linkage_audit.csv",
+    "survey_linkage_cer_linkage": "outputs/tables/survey_linkage_survey_inventory_and_linkage/survey_linkage_cer_survey_linkage_audit.csv",
+    "survey_linkage_lcl_mapping": "outputs/tables/survey_linkage_survey_inventory_and_linkage/survey_linkage_lcl_answer_metadata_mapping_audit.csv",
+    "survey_linkage_cer_routing": "outputs/tables/survey_linkage_survey_inventory_and_linkage/survey_linkage_cer_routing_audit.csv",
+    "survey_linkage_comparability": "outputs/tables/survey_linkage_survey_inventory_and_linkage/survey_linkage_lcl_cer_comparability_map.csv",
+    "survey_linkage_semantic_exceptions": "outputs/tables/survey_linkage_survey_inventory_and_linkage/survey_linkage_semantic_exception_audit.csv"
+  },
+  "output_roots": {
+    "tables": "outputs/tables/survey_recoding_survey_recoding_harmonisation",
+    "metadata": "outputs/metadata/survey_recoding_survey_recoding_harmonisation",
+    "decision_note": "documentation/technical_decisions/survey_recoding_survey_recoding_harmonisation_decision.md",
+    "logs": "logs/survey_recoding_survey_recoding_harmonisation"
+  },
+  "missingness_rules": {
+    "main_threshold": 0.1,
+    "domain_specific_threshold": 0.3,
+    "category_min_n": 10
+  },
+  "bands": {
+    "household_size": [
+      {
+        "label": "1",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "label": "2",
+        "min": 2,
+        "max": 2
+      },
+      {
+        "label": "3-4",
+        "min": 3,
+        "max": 4
+      },
+      {
+        "label": "5+",
+        "min": 5,
+        "max": 999
+      }
+    ],
+    "bedrooms": [
+      {
+        "label": "1",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "label": "2",
+        "min": 2,
+        "max": 2
+      },
+      {
+        "label": "3",
+        "min": 3,
+        "max": 3
+      },
+      {
+        "label": "4",
+        "min": 4,
+        "max": 4
+      },
+      {
+        "label": "5+",
+        "min": 5,
+        "max": 999
+      }
+    ]
+  },
+  "locked_selection": {
+    "cer_main_domains": [
+      "household_composition",
+      "daytime_presence",
+      "electric_thermal_load",
+      "dwelling_scale",
+      "reported_thermal_features",
+      "energy_vulnerability"
+    ],
+    "cer_secondary_domain": "economic_position",
+    "lcl_main_domains": [
+      "household_size",
+      "dwelling_scale",
+      "thermal_condition",
+      "electric_end_use"
+    ],
+    "expected_fallbacks": {
+      "dwelling_scale_main": "bedroom_category",
+      "reported_thermal_features_main": "double_glazing_category|attic_insulation_category|wall_insulation_category",
+      "economic_position_sensitivity": "social_class"
+    },
+    "cer_main_analysis_variables": [
+      "household_composition_common",
+      "daytime_presence_category",
+      "electric_thermal_load",
+      "dwelling_scale_main",
+      "double_glazing_category",
+      "attic_insulation_category",
+      "wall_insulation_category",
+      "energy_vulnerability"
+    ]
+  },
+  "lcl": {
+    "id_column": "Household_id",
+    "household_size_column": "Q213",
+    "age_columns": [
+      "Q222",
+      "Q223",
+      "Q224",
+      "Q225",
+      "Q226",
+      "Q227",
+      "Q228",
+      "Q229"
+    ],
+    "under16_age_labels": [
+      "0-4",
+      "05-11",
+      "12-15"
+    ],
+    "house_type_column": "Q235",
+    "flat_type_column": "Q236",
+    "mobile_type_column": "Q237",
+    "rooms_column": "Q238",
+    "bedrooms_column": "Q239",
+    "double_glazing_column": "Q240",
+    "roof_insulation_column": "Q241",
+    "wall_insulation_column": "Q242",
+    "central_heating_column": "Q246",
+    "hot_water_column": "Q248",
+    "appliance_columns": {
+      "electric_hob_any": "Q293",
+      "electric_oven_any": "Q295",
+      "washing_machine_standalone_any": "Q297",
+      "tumble_dryer_standalone_any": "Q298",
+      "washer_dryer_any": "Q299",
+      "dishwasher_any": "Q300",
+      "electric_shower_any": "Q301",
+      "portable_electric_heater_any": "Q303"
+    }
+  },
+  "cer": {
+    "id_column": "ID",
+    "floor_area_sqft_to_m2": 0.09290304,
+    "income_policy": "do_not_recode_q402_q4021_use_social_class_then_tenure_fallback"
+  },
+  "claim_boundary": {
+    "survey_role": "post_hoc_descriptive_associational",
+    "training_performed": false,
+    "predictions_modified": false,
+    "forecasting_inputs_modified": false,
+    "clustering_modified": false,
+    "regression_performed": false,
+    "significance_testing_performed": false,
+    "outcome_dependent_variable_selection": false,
+    "ProfileInterpretation_outcomes_read": false
+  },
+  "semantic_revision": {
+    "six_conceptual_domains": true,
+    "eight_cer_main_analysis_variables": true,
+    "thermal_efficiency_main_deprecated": true,
+    "reported_thermal_feature_count_role": "supplementary_descriptive_only",
+    "survey_group_composition_relationship": "survey_variable_distribution_by_fixed_profile_group",
+    "survey_gain_associations_relationship": "future_group_adjusted_association_with_pre_specified_strategy_gains_only"
+  }
+}

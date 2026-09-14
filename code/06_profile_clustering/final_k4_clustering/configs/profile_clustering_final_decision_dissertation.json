@@ -1,0 +1,113 @@
+{
+  "project_root": ".",
+  "analysis_id": "profile_clustering_final_decision_dissertation",
+  "paths": {
+    "phase1_status": "outputs/metadata/profile_clustering/profile_construction/source_training_profile_construction_status.json",
+    "profile_construction_audit": "outputs/tables/profile_clustering/profile_construction/source_training_profile_slot_audit.csv",
+    "time_map": "data/processed/time_aligned/lcl_full_local_clock_map.parquet",
+    "candidate_k_table": "outputs/tables/profile_clustering_clustering_final_k_selection/profile_clustering_candidate_k_selection_table.csv",
+    "focused_summary": "outputs/tables/profile_clustering_clustering_final_k_selection/profile_clustering_initialisation_sensitivity_k4_k5_k6.csv",
+    "run_diagnostics": "outputs/tables/profile_clustering_clustering_final_k_selection/profile_clustering_final_k_all_run_diagnostics.csv",
+    "cluster_composition": "outputs/tables/profile_clustering_clustering_final_k_selection/profile_clustering_final_k_cluster_composition_all_runs.csv",
+    "candidate_prototypes": "outputs/tables/profile_clustering_clustering_final_k_selection/profile_clustering_final_k_candidate_prototypes_all_runs.csv",
+    "all_assignments": "outputs/tables/profile_clustering_clustering_final_k_selection/profile_clustering_final_k_all_source_assignments_all_runs.parquet",
+    "pairwise_ari": "outputs/tables/profile_clustering_clustering_final_k_selection/profile_clustering_final_k_pairwise_ari_all_runs.csv",
+    "output_tables": "outputs/tables/profile_clustering_clustering_final_decision_dissertation",
+    "output_figures": "outputs/figures/profile_clustering_clustering_final_decision_dissertation",
+    "output_metadata": "outputs/metadata/profile_clustering_clustering_final_decision_dissertation",
+    "decision_document": "documentation/technical_decisions/profile_clustering_final_selection.md",
+    "profiles_zscore": "outputs/tables/profile_clustering/profile_construction/source_training_profiles_zscore.csv",
+    "profiles_raw_kwh": "outputs/tables/profile_clustering/profile_construction/source_training_profiles_raw_kwh.csv",
+    "low_signal_audit": "outputs/tables/profile_clustering/profile_construction/source_training_profile_variation_audit.csv",
+    "distance_matrix": "outputs/arrays/profile_clustering/profile_construction/source_prototype_fit_dtw_distance_matrix.npy"
+  },
+  "expected": {
+    "source_households": 3843,
+    "fit_eligible_households": 3789,
+    "low_signal_households": 54,
+    "profile_slots": 48,
+    "candidate_k": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "decision_k": [
+      4,
+      5
+    ],
+    "focused_seeds": [
+      42,
+      123,
+      2026,
+      31415,
+      7,
+      11,
+      19,
+      31,
+      53,
+      71,
+      97,
+      131,
+      173,
+      211,
+      257,
+      307,
+      353,
+      401,
+      457,
+      509
+    ],
+    "broad_seeds": [
+      42,
+      123,
+      2026,
+      31415
+    ],
+    "max_iter": 100,
+    "max_iter_barycenter": 100,
+    "tolerance": 1e-06,
+    "n_init_per_independent_run": 1,
+    "metric": "dtw",
+    "initialisation": "k-means++"
+  },
+  "time_rules": {
+    "profile_period_start": "2013-01-02 00:00:00",
+    "profile_period_end": "2013-09-13 18:30:00",
+    "excluded_local_dates": [
+      "2013-03-31"
+    ],
+    "local_slot_column": "local_slot",
+    "physical_timestamp_column": "timestamp_gmt",
+    "raw_gmt_hour_as_local_time_allowed": false
+  },
+  "candidate_run_rule": {
+    "minimum_all_assigned_share": 0.05,
+    "maximum_within_group_low_signal_share": 0.06,
+    "require_silhouette_at_or_above_candidate_median": true,
+    "then_select": "minimum_inertia_then_lowest_seed"
+  },
+  "k5_structural_rule": {
+    "parent_mode_share_minimum": 0.8,
+    "median_origin_purity_minimum": 0.75,
+    "median_extra_group_share_minimum": 0.08,
+    "peak_band_mode_share_minimum": 0.75,
+    "median_two_child_parent_coverage_minimum": 0.8,
+    "median_distinctness_ratio_minimum": 0.6,
+    "mean_silhouette_loss_maximum": 0.02,
+    "mean_minimum_share_loss_maximum": 0.03,
+    "minimum_k5_group_share_floor": 0.05
+  },
+  "scope_guards": {
+    "cer_inputs_allowed": false,
+    "forecasting_metrics_allowed": false,
+    "survey_inputs_allowed": false,
+    "rerun_kmeans_allowed": false,
+    "profile_clustering_inputs_read_only": true,
+    "reported_k_locked": true
+  },
+  "reported_k": 4
+}

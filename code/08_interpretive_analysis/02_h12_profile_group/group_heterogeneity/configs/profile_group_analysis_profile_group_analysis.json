@@ -1,0 +1,67 @@
+{
+  "analysis_id": "profile_group_analysis",
+  "project_root": ".",
+  "experiment_lock": "documentation/reproducibility_design_contract.md",
+  "inputs": {
+    "household_analytical_status": "outputs/metadata/metric_generation/household_analytical_dataset/household_analytical_dataset_status.json",
+    "household_analytical_native_metrics": "outputs/tables/metric_generation/household_analytical_dataset/household_metrics_native_four_seed.csv",
+    "household_analytical_native_gains": "outputs/tables/metric_generation/household_analytical_dataset/household_strategy_gains_native_four_seed.csv",
+    "household_analytical_common_lead_shifts": "outputs/tables/metric_generation/household_analytical_dataset/household_error_lead_shifts_common.csv",
+    "target_profile_assignment_status": "outputs/metadata/target_profile_assignment_cer_assignment/target_profile_assignment_cer_assignment_status.json",
+    "target_profile_assignment_assignments": "outputs/tables/target_profile_assignment_cer_assignment/target_profile_assignment_cer_source_defined_assignments.csv"
+  },
+  "outputs": {
+    "table_dir": "outputs/tables/profile_group_analysis_profile_group_analysis",
+    "figure_dir": "outputs/figures/profile_group_analysis_profile_group_analysis",
+    "metadata_dir": "outputs/metadata/profile_group_analysis_profile_group_analysis",
+    "decision_dir": "documentation/technical_decisions",
+    "log_dir": "logs/profile_group_analysis_profile_group_analysis"
+  },
+  "expected": {
+    "meters": 929,
+    "groups": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "group_counts": {
+      "1": 141,
+      "2": 325,
+      "3": 324,
+      "4": 139
+    },
+    "leads": [
+      1,
+      12,
+      48
+    ],
+    "strategies": [
+      "direct_transfer",
+      "fine_tuning",
+      "cer_scratch_limited",
+      "cer_scratch_full"
+    ],
+    "criteria": [
+      "mae",
+      "rmse",
+      "smape"
+    ],
+    "seed_count": 4,
+    "native_metric_rows": 11148,
+    "native_gain_rows": 8361,
+    "common_lead_shift_rows": 11148
+  },
+  "analysis": {
+    "aggregation": "equal-meter descriptive aggregation within assigned source-defined K=4 group",
+    "primary_support": "native lead-specific meter results",
+    "cross_lead_support": "strict common-row meter lead shifts",
+    "gain_definitions": {
+      "source_transfer_gain": "CER Scratch Limited error minus Direct Transfer error; positive means Direct Transfer has lower error",
+      "fine_tuning_gain": "Direct Transfer error minus Fine Tuning error; positive means Fine Tuning has lower error",
+      "full_data_gain": "CER Scratch Limited error minus CER Scratch Full error; positive means CER Scratch Full has lower error",
+      "direct_vs_full_gain": "CER Scratch Full error minus Direct Transfer error; positive means Direct Transfer has lower error"
+    },
+    "interpretation": "descriptive and non-causal; group labels and test outcomes are not model inputs and do not change assignments"
+  }
+}

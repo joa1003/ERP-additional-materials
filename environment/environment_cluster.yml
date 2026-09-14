@@ -1,0 +1,15 @@
+name: erp_cluster
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - numpy==2.4.6
+      - pandas==3.0.5
+      - pyarrow
+      - PyYAML
+      - matplotlib
+      - scipy
+      - scikit-learn
+      - tslearn==0.9.0

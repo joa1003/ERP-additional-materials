@@ -1,0 +1,403 @@
+runtime_projection:
+  role: reproduction_runtime_parameters
+  design_status: reported_analysis
+project:
+  root: .
+canonical_paths:
+  lcl_load_values: data/raw/LCL/csv/data_collection/data_tables/consumption_n.csv
+  lcl_time_and_calendar: data/processed/time_aligned/lcl_full_local_clock_map.parquet
+  lcl_final_cohort: outputs/tables/horizon_impact/lcl_p0_final_eligible_households_new.csv
+  cer_standard_grid: data/processed/time_aligned/cer_canonical_local_grid.parquet
+  cer_nonstandard_slot_audit: data/processed/time_aligned/cer_excluded_nonstandard_slots.parquet
+  sample_index_dir: outputs/tables/sample_construction
+  scaler_dir: outputs/tables/sample_construction
+  model_configs:
+    1: configs/forecasting_h1.yaml
+    12: configs/forecasting_h12.yaml
+    48: configs/forecasting_h48.yaml
+datasets:
+  lcl:
+    role: source
+    raw_household_count: 4173
+    final_household_count: 3843
+    full_data_period:
+      start: '2013-01-01 00:00:00'
+      end: '2013-12-31 23:30:00'
+      canonical_positions: 17520
+    support_only_date: '2013-01-01'
+    forecasting_target_period:
+      start: '2013-01-02 00:00:00'
+      end: '2013-12-31 23:30:00'
+    clustering_profile_period:
+      start: '2013-01-02 00:00:00'
+      end: '2013-09-13 18:30:00'
+  cer:
+    role: target
+    meter_count: 929
+    full_data_period:
+      start: '2009-07-14 00:00:00'
+      end: '2010-12-31 23:30:00'
+      canonical_positions: 23901312
+    support_only_date: '2009-07-14'
+    forecasting_target_period:
+      start: '2009-07-15 00:00:00'
+      end: '2010-12-31 23:30:00'
+    clustering_profile_period:
+      start: '2009-07-15 00:00:00'
+      end: '2010-07-24 11:30:00'
+    standard_slots:
+      start: 1
+      end: 48
+    cer_irregular_slots:
+      nonstandard_slots:
+        slots:
+        - 49
+        - 50
+        dates:
+        - '2009-10-25'
+        - '2010-10-31'
+        record_count: 3716
+        slots_51_plus_in_formal_sample: false
+        treatment: audit_only
+        exact_wall_clock_mapping: unconfirmed
+        exact_physical_ordering: unconfirmed
+        remap: false
+        merge_or_average: false
+        impute: false
+        forecasting_input: false
+        forecasting_target: false
+      systematic_standard_slot_absence:
+        date: '2010-03-28'
+        slots:
+        - 2
+        - 3
+        affected_meter_count: 929
+        missing_position_count: 1858
+        canonical_representation:
+          kwh: null
+          raw_record_present: false
+          is_missing: true
+          is_structural_absence: true
+          is_observational_missing: false
+        exact_cause: unconfirmed
+        confirmed_simple_dst_skipped_hour: false
+        fill_zero: false
+        interpolate: false
+        remap: false
+      standard_local_day_exclusions:
+        purpose:
+        - average_daily_profile
+        - local_slot_figures
+        - weekday_weekend_local_profiles
+        - cer_clustering_profile
+        dates:
+        - '2009-10-25'
+        - '2010-03-28'
+        - '2010-10-31'
+        remove_from_canonical_grid: false
+      forecasting:
+        use_standard_grid_only: true
+        slot_49_50_enter_sequence: false
+        required_missing_input_action: skip_sample
+        missing_target_action: skip_sample
+        missing_intermediate_position_for_higher_horizon_invalidates_sample: false
+        compress_timeline_after_missing_or_exclusion: false
+lcl_eligibility:
+  sequential_rules:
+  - R1
+  - R2
+  - R3
+  - R4
+  R1:
+    description: full_period_coverage
+    period_start: '2013-01-01 00:00:00'
+    period_end: '2013-12-31 23:30:00'
+    minimum_coverage: 0.9
+    pass_count: 3887
+  R2:
+    description: observed_training_variation
+    round_decimals: 3
+    minimum_distinct_values_exclusive: 1
+    failure_ids:
+    - N0498
+    - N1603
+    pass_count: 3885
+  R3:
+    description: minimum_useful_transitions_across_formal_horizons
+    formal_horizons:
+    - 1
+    - 12
+    - 48
+    minimum_useful_transitions: 100
+    useful_transition_definition:
+      complete_48_step_input: true
+      target_observed: true
+      input_contains_adjacent_change: true
+      target_greater_than_zero: true
+    failure_ids:
+    - N2035
+    - N2840
+    - N3080
+    - N3458
+    - N3962
+    pass_count: 3880
+  R4:
+    description: maximum_training_skip_rate_across_formal_horizons
+    formal_horizons:
+    - 1
+    - 12
+    - 48
+    maximum_skip_rate: 0.05
+    comparison: less_than_or_equal
+    failure_count: 37
+    failure_ids:
+    - N0321
+    - N0471
+    - N0501
+    - N0522
+    - N0543
+    - N0600
+    - N0800
+    - N0817
+    - N0959
+    - N1077
+    - N1490
+    - N1746
+    - N1818
+    - N1851
+    - N2041
+    - N2076
+    - N2114
+    - N2124
+    - N2161
+    - N2274
+    - N2402
+    - N2419
+    - N2678
+    - N2805
+    - N2831
+    - N2895
+    - N2943
+    - N3044
+    - N3214
+    - N3246
+    - N3281
+    - N3361
+    - N3381
+    - N3517
+    - N3601
+    - N3730
+    - N4084
+    final_pass_count: 3843
+  r3_r4_overlap_count: 0
+  final_common_cohort_count: 3843
+  same_cohort_across_horizons: true
+forecasting_task:
+  task_type: independent_single_target
+  resolution: 30min
+  model_scope: global
+  architecture_family: CNN_LSTM
+  formal_horizons:
+  - 1
+  - 12
+  - 48
+  horizon_hours:
+    1: 0.5
+    12: 6
+    48: 24
+  input_length: 48
+  output_length: 1
+  input_feature_count: 8
+  input_shape:
+  - 48
+  - 8
+  output_shape:
+  - 1
+  target_definition: input=x[t-h-47]...x[t-h]; target=x[t]
+  split_assignment: final_target_timestamp
+  one_model_per_entity: false
+  one_source_checkpoint_per_horizon: true
+features:
+  included:
+  - scaled_load
+  - time_of_day_sin
+  - time_of_day_cos
+  - day_of_week_sin
+  - day_of_week_cos
+  - weekend_indicator
+  - month_sin
+  - month_cos
+  excluded:
+  - weather
+  - survey_variables
+  - allocation_variables
+  - household_id
+  - meter_id
+  - tariff_variables
+  - cluster_labels
+  - separate_season_label
+  local_calendar_source:
+    lcl: canonical_europe_london_fields
+    cer: canonical_local_grid_fields
+splits:
+  lcl:
+    train:
+      start: '2013-01-02 00:00:00'
+      end: '2013-09-13 18:30:00'
+    validation:
+      start: '2013-09-13 19:00:00'
+      end: '2013-10-20 04:00:00'
+    test:
+      start: '2013-10-20 04:30:00'
+      end: '2013-12-31 23:30:00'
+    native_candidate_targets_per_household:
+      1:
+        train: 12230
+        validation: 1747
+        test: 3495
+      12:
+        train: 12219
+        validation: 1747
+        test: 3495
+      48:
+        train: 12183
+        validation: 1747
+        test: 3495
+  cer:
+    train:
+      start: '2009-07-15 00:00:00'
+      end: '2010-07-24 11:30:00'
+    validation:
+      start: '2010-07-24 12:00:00'
+      end: '2010-09-15 23:30:00'
+    test:
+      start: '2010-09-16 00:00:00'
+      end: '2010-12-31 23:30:00'
+    native_candidate_targets_per_meter:
+      1:
+        train: 17976
+        validation: 2568
+        test: 5136
+      12:
+        train: 17965
+        validation: 2568
+        test: 5136
+      48:
+        train: 17929
+        validation: 2568
+        test: 5136
+sample_construction:
+  native_support_by_horizon: true
+  common_target_support_formal: false
+  physical_continuity_required: true
+  lcl_physical_sequence_key: timestamp_gmt
+  cer_physical_sequence: canonical_standard_slot_grid
+  required_observed_positions:
+    inputs: 48
+    target: 1
+  intermediate_positions_required_for_higher_horizons: false
+  input_imputation: false
+  target_imputation: false
+  observed_zero_is_valid: true
+  missing_window_action: skip_affected_sample_only
+  full_dense_X_y_saved_to_disk: false
+  production_index_columns:
+  - dataset
+  - entity_id
+  - horizon
+  - target_timestamp
+  - split
+scaling:
+  method: per_entity_zscore
+  standard_deviation_ddof: 0
+  standard_deviation_floor_kwh: 0.01
+  exclude_missing_from_fit: true
+  validation_used_for_fit: false
+  test_used_for_fit: false
+  inverse_transform_before_metrics: true
+  one_scaler_shared_across_horizons_per_entity: true
+  lcl:
+    fit_start: '2013-01-02 00:00:00'
+    fit_end: '2013-09-13 18:30:00'
+  cer:
+    direct_transfer:
+      fit_start: '2009-07-15 00:00:00'
+      fit_end: '2009-08-13 23:30:00'
+      candidate_timestamps: 1440
+    fine_tuning:
+      fit_start: '2009-07-15 00:00:00'
+      fit_end: '2009-08-13 23:30:00'
+      candidate_timestamps: 1440
+    target_scratch_limited:
+      fit_start: '2009-07-15 00:00:00'
+      fit_end: '2009-08-13 23:30:00'
+      candidate_timestamps: 1440
+    target_scratch_full:
+      fit_start: '2009-07-15 00:00:00'
+      fit_end: '2010-07-24 11:30:00'
+      candidate_timestamps: 17976
+strategies:
+  main:
+  - direct_transfer
+  - fine_tuning
+  - target_scratch_limited
+  - target_scratch_full
+  direct_transfer_target_parameter_update: false
+  fine_tuning_main_target_span_days: 30
+  target_scratch_limited_span_days: 30
+clustering:
+  role: post_hoc_rq3_interpretation
+  forecasting_input: false
+  source_population_count: 3843
+  profile_length: 48
+  profile_type: average_daily_load_profile
+  normalisation: per_profile_zscore
+  normalisation_ddof: 0
+  method: dtw_kmeans
+  main_k: 4
+  main_k_status: prespecified_subject_to_rerun_diagnostics
+  low_signal_raw_profile_std_threshold_kwh: 0.01
+  low_signal_excluded_from_prototype_fit_only: true
+  cer_fits_own_prototypes: false
+  source_target_joint_clustering: false
+evaluation:
+  metrics:
+  - MAE
+  - RMSE
+  - SMAPE
+  metric_scale: original_kwh
+  report_separately_by_horizon: true
+  levels:
+  - lcl_pooled_source_reference
+  - cer_pooled
+  - cer_household
+  - cer_source_defined_profile_group
+  profile_group_aggregation: household_metrics_then_equal_household_mean
+  transfer_gain_definition: error_B - error_A
+  positive_transfer_gain_meaning: strategy_A_has_lower_error
+  smape_zero_zero_contribution: 0
+runtime_assertions:
+  raw_lcl_household_count: 4173
+  r1_pass_count: 3887
+  r1_r2_pass_count: 3885
+  r3_failure_count: 5
+  r4_failure_count: 37
+  r3_r4_overlap_count: 0
+  final_lcl_household_count: 3843
+  cer_meter_count: 929
+  formal_horizons:
+  - 1
+  - 12
+  - 48
+  input_length: 48
+  output_length: 1
+  input_imputation: false
+  target_imputation: false
+  weather_in_main_model: false
+formal_model_configs:
+  paths:
+  - configs/forecasting_h1.yaml
+  - configs/forecasting_h12.yaml
+  - configs/forecasting_h48.yaml
+  status: formal_production_ready
+  purpose: lead-specific reported forecasting runs

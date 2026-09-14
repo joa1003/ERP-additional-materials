@@ -1,0 +1,43 @@
+comparison,comparison_code,outcome,G1,G2,G3,G4
+Direct Transfer over Scratch Limited,direct_over_limited,MAE Gain (kWh),0.00815289308202617,0.015309340660327138,0.018368881234283915,0.024696987658362347
+Direct Transfer over Scratch Limited,direct_over_limited,Relative MAE Gain (%),1.6855607294975743,3.3864182441899566,5.010470957957303,6.759407716873253
+Direct Transfer over Scratch Limited,direct_over_limited,Positive MAE households (%),53.90070921985816,71.38461538461539,81.17283950617285,88.48920863309353
+Direct Transfer over Scratch Limited,direct_over_limited,RMSE Gain (kWh),0.02423072019464549,0.03428616522593057,0.03667940141618072,0.038765634738700226
+Direct Transfer over Scratch Limited,direct_over_limited,Positive RMSE households (%),96.45390070921985,94.76923076923077,99.38271604938271,99.28057553956835
+Direct Transfer over Scratch Limited,direct_over_limited,sMAPE Gain (pp),-0.27210941102427344,0.5659096715707778,1.1767933444297276,2.4702499931654014
+Direct Transfer over Scratch Limited,direct_over_limited,Positive sMAPE households (%),39.00709219858156,53.53846153846153,60.802469135802475,73.38129496402878
+Fine Tuning over Direct Transfer,fine_tuning_over_direct,MAE Gain (kWh),-0.01459661224451918,-0.014553253433770274,-0.01484575062851898,-0.012802614839388321
+Fine Tuning over Direct Transfer,fine_tuning_over_direct,Relative MAE Gain (%),-5.514873586733306,-4.650949149702476,-5.162175468809816,-4.665341921315127
+Fine Tuning over Direct Transfer,fine_tuning_over_direct,Positive MAE households (%),4.25531914893617,0.6153846153846154,0.30864197530864196,0.7194244604316548
+Fine Tuning over Direct Transfer,fine_tuning_over_direct,RMSE Gain (kWh),-0.0017640741746707354,-0.0006972951796155037,-0.0027983017013525646,-0.0027487154287901636
+Fine Tuning over Direct Transfer,fine_tuning_over_direct,Positive RMSE households (%),39.00709219858156,53.84615384615385,26.851851851851855,30.935251798561154
+Fine Tuning over Direct Transfer,fine_tuning_over_direct,sMAPE Gain (pp),-3.804118398424096,-3.2084985492390605,-3.48548893389245,-2.865443300767568
+Fine Tuning over Direct Transfer,fine_tuning_over_direct,Positive sMAPE households (%),3.546099290780142,0.6153846153846154,0.6172839506172839,1.4388489208633095
+Scratch Full over Scratch Limited,full_over_limited,MAE Gain (kWh),0.01016567971707288,0.0169642798539375,0.020000000644851915,0.021476246863791515
+Scratch Full over Scratch Limited,full_over_limited,Relative MAE Gain (%),2.10046496363172,3.4535402032422247,4.455327549569847,5.3095402034437
+Scratch Full over Scratch Limited,full_over_limited,Positive MAE households (%),60.28368794326241,71.38461538461539,75.0,68.34532374100719
+Scratch Full over Scratch Limited,full_over_limited,RMSE Gain (kWh),0.03442716625827247,0.04809219750758883,0.05132926968398109,0.06253650938531125
+Scratch Full over Scratch Limited,full_over_limited,Positive RMSE households (%),92.19858156028369,95.38461538461539,97.53086419753086,96.40287769784173
+Scratch Full over Scratch Limited,full_over_limited,sMAPE Gain (pp),1.2418957154545593,2.1450230706803786,2.3124731245870196,2.36865061423281
+Scratch Full over Scratch Limited,full_over_limited,Positive sMAPE households (%),58.86524822695035,69.53846153846153,73.14814814814815,69.7841726618705
+Direct Transfer over Scratch Full,direct_over_full,MAE Gain (kWh),-0.002012786635046709,-0.0016549391936103634,-0.0016311194105680033,0.0032207407945708355
+Direct Transfer over Scratch Full,direct_over_full,Relative MAE Gain (%),-1.2703492003959036,-0.810999484399642,-0.4290550444604701,0.3991396716883886
+Direct Transfer over Scratch Full,direct_over_full,Positive MAE households (%),48.93617021276596,52.92307692307693,50.308641975308646,61.87050359712231
+Direct Transfer over Scratch Full,direct_over_full,RMSE Gain (kWh),-0.010196446063626968,-0.013806032281658259,-0.014649868267800374,-0.023770874646611016
+Direct Transfer over Scratch Full,direct_over_full,Positive RMSE households (%),26.24113475177305,16.0,19.1358024691358,29.496402877697843
+Direct Transfer over Scratch Full,direct_over_full,sMAPE Gain (pp),-1.5140051264788328,-1.579113399109601,-1.135679780157292,0.10159937893259098
+Direct Transfer over Scratch Full,direct_over_full,Positive sMAPE households (%),29.78723404255319,37.53846153846154,36.41975308641975,59.71223021582733
+Fine Tuning over Scratch Limited,fine_tuning_over_limited,MAE Gain (kWh),-0.006443719162493011,0.0007560872265568618,0.0035231306057649345,0.01189437281897403
+Fine Tuning over Scratch Limited,fine_tuning_over_limited,Relative MAE Gain (%),-3.8803643850990155,-1.2594895265615458,-0.007461960375930548,2.291510255811713
+Fine Tuning over Scratch Limited,fine_tuning_over_limited,Positive MAE households (%),28.368794326241137,45.230769230769226,50.0,59.71223021582733
+Fine Tuning over Scratch Limited,fine_tuning_over_limited,RMSE Gain (kWh),0.022466646019974758,0.03358887004631507,0.03388109971482816,0.036016919309910064
+Fine Tuning over Scratch Limited,fine_tuning_over_limited,Positive RMSE households (%),89.36170212765957,90.76923076923077,94.44444444444444,93.5251798561151
+Fine Tuning over Scratch Limited,fine_tuning_over_limited,sMAPE Gain (pp),-4.076227809448368,-2.6425888776682824,-2.3086955894627232,-0.3951933076021672
+Fine Tuning over Scratch Limited,fine_tuning_over_limited,Positive sMAPE households (%),18.439716312056735,28.923076923076923,30.555555555555557,46.043165467625904
+Scratch Full over Fine Tuning,full_over_fine_tuning,MAE Gain (kWh),0.01660939887956589,0.016208192627380637,0.01647687003908698,0.009581874044817484
+Scratch Full over Fine Tuning,full_over_fine_tuning,Relative MAE Gain (%),5.221900867496515,4.305658887067944,4.431048015396874,2.690106524566311
+Scratch Full over Fine Tuning,full_over_fine_tuning,Positive MAE households (%),77.30496453900709,76.0,78.70370370370371,63.30935251798561
+Scratch Full over Fine Tuning,full_over_fine_tuning,RMSE Gain (kWh),0.011960520238297703,0.01450332746127376,0.017448169969152938,0.026519590075401174
+Scratch Full over Fine Tuning,full_over_fine_tuning,Positive RMSE households (%),76.59574468085107,86.15384615384616,88.58024691358025,76.97841726618705
+Scratch Full over Fine Tuning,full_over_fine_tuning,sMAPE Gain (pp),5.318123524902928,4.787611948348661,4.621168714049743,2.763843921834977
+Scratch Full over Fine Tuning,full_over_fine_tuning,Positive sMAPE households (%),87.2340425531915,89.53846153846153,87.03703703703704,74.10071942446042

@@ -1,0 +1,9 @@
+# Python 3.12 environment for clustering, statistical analysis and report outputs.
+numpy==2.4.6
+pandas==3.0.5
+pyarrow
+PyYAML
+matplotlib
+scipy
+scikit-learn
+tslearn==0.9.0

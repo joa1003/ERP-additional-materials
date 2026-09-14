@@ -1,0 +1,22 @@
+{
+  "formal_counts": {
+    "lcl_households": 3843,
+    "cer_households": 929,
+    "seeds": [42, 123, 2026, 31415],
+    "leads": [1, 12, 48]
+  },
+  "h12_native_pooled_mae_mean": {
+    "tolerance": 0.000005,
+    "direct_transfer": 0.330694,
+    "fine_tuning": 0.345092,
+    "cer_scratch_limited": 0.347389,
+    "cer_scratch_full": 0.329722
+  },
+  "h12_group_source_transfer_mae_gain": {
+    "tolerance": 0.00011,
+    "G1": 0.0082,
+    "G2": 0.0153,
+    "G3": 0.0184,
+    "G4": 0.0247
+  }
+}

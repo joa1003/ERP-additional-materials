@@ -1,0 +1,19 @@
+Validated software environments
+
+TORCH
+Python 3.12.13
+PyTorch 2.12.1+cu130
+pandas 3.0.3
+NumPy 2.5.1
+PyYAML 6.0.3
+openpyxl 3.1.5
+
+CLUSTER
+Python 3.12.13
+pandas 3.0.5
+NumPy 2.4.6
+tslearn 0.9.0
+
+The preflight also checks required imports for matplotlib, pyarrow, SciPy and scikit-learn.
+Installation manifests are provided in requirements_torch.txt, requirements_cluster.txt, environment_torch.yml and environment_cluster.yml.
+Where an exact version was not retained in this validation record, the installation manifest leaves that dependency unpinned and the package preflight checks compatibility.

@@ -1,0 +1,20 @@
+package_prefix,declared_environment,reason
+code/04_forecasting,TORCH,Forecasting and PyTorch model pipeline
+code/06_profile_clustering/final_k4_clustering,CLUSTER,Canonical clustering family environment
+code/06_profile_clustering/k_selection,CLUSTER,Requires scipy sklearn tslearn
+code/06_profile_clustering/target_assignment,CLUSTER,Requires tslearn
+code/07_survey_data_governance/linkage,TORCH,Requires openpyxl
+code/07_survey_data_governance/recoding,TORCH,Survey recoding requirements
+code/08_interpretive_analysis/02_h12_profile_group/group_heterogeneity,CLUSTER,Requires scipy
+code/08_interpretive_analysis/02_h12_profile_group/load_range,CLUSTER,Load-range analysis requirements
+code/08_interpretive_analysis/02_h12_profile_group/source_relevance,CLUSTER,Requires scipy sklearn
+code/08_interpretive_analysis/02_h12_profile_group/temporal_drift,CLUSTER,Requires scipy sklearn
+code/08_interpretive_analysis/03_h12_survey_posthoc/group_adjusted_gain,CLUSTER,Requires scipy
+code/08_interpretive_analysis/03_h12_survey_posthoc/group_composition,CLUSTER,Requires scipy
+code/05_metric_generation/household_analytical_dataset,CLUSTER,Household metric aggregation uses numpy pandas and pyarrow
+code/06_profile_clustering/profile_construction,CLUSTER,Requires tslearn for DTW distance construction
+code/01_data_preparation,TORCH,Raw preprocessing and eligibility; includes spreadsheet-compatible data access
+code/02_eda_and_data_diagnostics,TORCH,Reported EDA and lead diagnostic
+code/03_sample_construction,TORCH,Sample construction uses PyTorch-facing dataset utilities
+code/08_interpretive_analysis/01_pooled_cross_lead,CLUSTER,Pooled cross-lead analysis uses the analysis environment
+code/09_report_output_generation,CLUSTER,Report figures consume analysis outputs

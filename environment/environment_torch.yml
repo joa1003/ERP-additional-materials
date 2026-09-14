@@ -1,0 +1,14 @@
+name: erp_torch
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - torch==2.12.1
+      - numpy==2.5.1
+      - pandas==3.0.3
+      - pyarrow
+      - PyYAML==6.0.3
+      - matplotlib
+      - openpyxl==3.1.5

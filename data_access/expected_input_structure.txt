@@ -1,0 +1,21 @@
+data/raw/
+├── LCL/
+│   ├── csv/data_collection/data_tables/
+│   │   ├── consumption_n.csv
+│   │   ├── survey_questions.csv
+│   │   └── survey_answers.csv
+│   └── [provider documentation PDFs, including the appliance survey form and dataset README]
+└── ISSDA_CER/
+    ├── File1.txt
+    ├── File2.txt
+    ├── File3.txt
+    ├── File4.txt
+    ├── File5.txt
+    ├── File6.txt
+    ├── Smart meters Residential pre-trial survey data.csv
+    └── SurveySourceData_survey_original/
+        ├── RESIDENTIAL PRE TRIAL SURVEY.pdf
+        ├── SME and Residential allocations.xlsx
+        └── File Manifest - Smart Meter Electricity Trial Data v1.0.1.pdf
+
+Generated data belong under data/processed/ and outputs/. Do not place author-generated intermediate files there before reproduction.

@@ -1,0 +1,9 @@
+criterion,k4,k5,evidence_direction
+Mean DTW inertia (20 initialisations),4.155539724124696,3.884638071249062,Lower favours K=5
+Mean full-sample silhouette (20 initialisations),0.1560044579207897,0.13722344860434527,Higher favours K=4
+Mean minimum group share (20 initialisations),0.14664324746291957,0.11863127764767105,Higher favours K=4
+Mean pairwise ARI,0.4443799597272655,0.4868118895521225,Higher favours K=5
+Median extra-group origin purity,,0.5902330743618203,Higher supports structural K=5 split
+Dominant-parent recurrence share,,0.5,Higher supports structural K=5 split
+Extra-group peak-band recurrence share,,0.2,Higher supports structural K=5 split
+Operational recommendation,SELECTED,,Human confirmation required
